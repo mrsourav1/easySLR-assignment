@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: easyslr-postgres
+    environment:
+      POSTGRES_USER: easyslr
+      POSTGRES_PASSWORD: easyslr
+      POSTGRES_DB: easyslr
+    ports:
+      - "5432:5432"
+    volumes:
+      - easyslr-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U easyslr -d easyslr"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+    container_name: easyslr-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://easyslr:easyslr@postgres:5432/easyslr?schema=public
+      NEXTAUTH_URL: http://localhost:3001
+      NEXTAUTH_SECRET: replace-with-a-long-random-secret-for-production
+      SEED_DATABASE: "true"
+      PORT: "3000"
+    ports:
+      - "3001:3000"
+
+volumes:
+  easyslr-postgres-data:
