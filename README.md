@@ -166,7 +166,28 @@ npm run build
 
 ## Deployment Status
 
-This submission is local-first. I did not deploy it to AWS within the timebox.
+This submission is local-first. It can be deployed on Vercel with a hosted Postgres database such as Supabase, Neon, or Prisma Postgres. AWS/SST would be the preferred production deployment path for the assignment, but Vercel is suitable for a public demo URL.
+
+For Vercel with Supabase, set these environment variables:
+
+```bash
+DATABASE_URL="postgresql://...pooler.supabase.com:6543/postgres?pgbouncer=true"
+PRISMA_MIGRATE_URL="postgresql://...pooler.supabase.com:5432/postgres"
+NEXTAUTH_URL="https://your-vercel-app.vercel.app"
+NEXTAUTH_SECRET="generate-a-long-random-secret"
+```
+
+Use this Vercel build command:
+
+```bash
+npm run vercel-build
+```
+
+After the first deployment, seed demo data once against the hosted database:
+
+```bash
+DATABASE_URL="your-hosted-database-url" npm run db:seed
+```
 
 If deploying, I would use SST with:
 
