@@ -166,7 +166,11 @@ npm run build
 
 ## Deployment Status
 
-This submission is local-first. It can be deployed on Vercel with a hosted Postgres database such as Supabase, Neon, or Prisma Postgres. AWS/SST would be the preferred production deployment path for the assignment, but Vercel is suitable for a public demo URL.
+Live demo:
+
+https://easy-slr-assignment-seven.vercel.app
+
+This submission is deployed on Vercel with Supabase Postgres. AWS/SST would be the preferred production deployment path for the assignment, but Vercel is suitable for a public demo URL.
 
 For Vercel with Supabase, set these environment variables:
 
